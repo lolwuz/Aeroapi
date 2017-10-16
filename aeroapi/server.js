@@ -2,7 +2,9 @@ var express = require('express'),
 app = express(),
 port = process.env.PORT || 3000,
 mongoose = require('mongoose'),
-Task = require('./api/models/airlinerModel'), //created model loading here
+Airliner = require('./api/models/airlinerModel'), //created model loading here
+Airport = require('./api/models/airlinerModel'), //created model loading here
+
 bodyParser = require('body-parser');
 
 // mongoose instance connection url connection
@@ -12,8 +14,11 @@ mongoose.connect('mongodb://localhost:27017/airliner');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var routes = require('./api/routes/airlinerRoutes'); //importing route
-routes(app); //register the route
+var airlinerRoutes = require('./api/routes/airlinerRoutes'); //importing route
+airlinerRoutes(app); //register the route
+
+var airportRoutes = require('./api/routes/airportRoutes'); //importing route
+airportRoutes(app); //register the route
 
 app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
