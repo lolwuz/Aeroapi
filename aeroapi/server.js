@@ -3,7 +3,7 @@ app = express(),
 port = process.env.PORT || 3000,
 mongoose = require('mongoose'),
 Airliner = require('./api/models/airlinerModel'), //created model loading here
-Airport = require('./api/models/airlinerModel'), //created model loading here
+Airport = require('./api/models/airportModel'), //created model loading here
 
 bodyParser = require('body-parser');
 
