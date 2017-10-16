@@ -17,7 +17,7 @@ var AirportSchema = new Schema({
         required: 'Enter airport longitude'
     },
     lat: {
-        type: String,
+        type: Number,
         required: 'Enter airport lat'
     },
     iso: {
