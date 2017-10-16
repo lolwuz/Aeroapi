@@ -8,9 +8,9 @@ var AirportSchema = new Schema({
         type: String,
         required: 'This airport has no name.'
     },
-    aita: {
+    iata: {
         type: String,
-        required: 'Airports should have a aita name'
+        required: 'Airports should have a iata name'
     },
     lon: {
         type: Number,

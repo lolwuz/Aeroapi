@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
   Airport = mongoose.model('Airport');
 
 exports.list_all_airport = function(req, res) {
-    Airport.find({}, function(err, airport) {
+    Airport.find({size: 'large'}, function(err, airport) {
     if (err)
       res.send(err);
     res.json(airport);
