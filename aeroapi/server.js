@@ -5,6 +5,7 @@ mongoose = require('mongoose'),
 Airliner = require('./api/models/airlinerModel'), //created model loading here
 Airport = require('./api/models/airportModel'), //created model loading here
 Plane = require('./api/models/planeModel'), //created model loading here
+docs = require("express-mongoose-docs");
 
 bodyParser = require('body-parser');
 
@@ -31,9 +32,11 @@ airportRoutes(app); //register the route
 var planeRoutes = require('./api/routes/planeRoutes'); //importing route
 planeRoutes(app); //register the route
 
+docs(app, mongoose); // 2nd param is optional
 app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 });
+
 
 app.listen(port);
 
