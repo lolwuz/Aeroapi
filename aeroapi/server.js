@@ -2,16 +2,18 @@ var express = require('express'),
 app = express(),
 port = process.env.PORT || 3000,
 mongoose = require('mongoose'),
+morgan = require('morgan'),
 Airliner = require('./api/models/airlinerModel'), //created model loading here
 Airport = require('./api/models/airportModel'), //created model loading here
-Plane = require('./api/models/planeModel'), //created model loading here
-
+Plane = require('./api/models/planeModel'),
+User = require('./api/routes/userRoutes'), //created model loading here
 bodyParser = require('body-parser');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/airliner'); 
 
+app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -21,6 +23,8 @@ app.use(function(req, res, next) {
     next();
   });
   
+
+app.use('/users', routes);
 
 var airlinerRoutes = require('./api/routes/airlinerRoutes'); //importing route
 airlinerRoutes(app); //register the route
