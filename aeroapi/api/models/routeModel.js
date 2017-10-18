@@ -7,11 +7,14 @@ var airport = require('../models/airportModel');
 var RouteSchema = new Schema({
   destinations: {
     type: [String],
-    required: 'Kindly enter the name of the route'
+    default: []
   },
   created_date: {
     type: Date,
     default: Date.now
+  },
+  created_by: {
+    type: ObjectId
   }
 });
 
