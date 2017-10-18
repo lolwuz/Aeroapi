@@ -2,8 +2,8 @@
 
 
 var mongoose = require('mongoose'),
-  Airliner = mongoose.model('Airliner');
-Route = mongoos.model('Route');
+  Airliner = mongoose.model('Airliner'),
+  Route = mongoose.model('Route');
 
 exports.list_all_airliner = function (req, res) {
   Airliner.find({}, function (err, airliner) {
@@ -55,7 +55,7 @@ exports.delete_a_airliner = function (req, res) {
 };
 
 exports.create_a_airliner_route = function (req, res) {
-  var new_route = new Route(req.body);
+  var new_route = new Route(req.body.destinations);
 
   Airliner.findOneAndUpdate({
       _id: req.params.airlinerId

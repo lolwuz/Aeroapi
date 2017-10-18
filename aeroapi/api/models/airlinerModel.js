@@ -1,7 +1,8 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var routes = require('../routes/routeModel');
+var ObjectId = mongoose.Schema.Types.ObjectId;
+var routes = require('../models/routeModel');
 
 var AirlinerSchema = new Schema({
   name: {
@@ -17,7 +18,7 @@ var AirlinerSchema = new Schema({
     required: 'Kindly enter the money of the airliner'
   },
   routes: {
-    type: [routes]
+    type: [String]
   }
 });
 

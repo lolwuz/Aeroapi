@@ -13,6 +13,5 @@ module.exports = function(app) {
     .delete(airliner.delete_a_airliner);
 
   app.route('/airliner/:airlinerId/route')
-    .get(airliner.read_a_airliner_route)
     .post(airliner.create_a_airliner_route)
 };

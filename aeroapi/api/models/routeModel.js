@@ -1,11 +1,12 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var airport = require('../routes/airportModel');
+var ObjectId = mongoose.Schema.Types.ObjectId;
+var airport = require('../models/airportModel');
 
 var RouteSchema = new Schema({
-  distinations: {
-    type: [airport],
+  destinations: {
+    type: [String],
     required: 'Kindly enter the name of the route'
   },
   created_date: {
