@@ -1,20 +1,23 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+var routes = require('../routes/routeModel');
 
 var AirlinerSchema = new Schema({
   name: {
     type: String,
     required: 'Kindly enter the name of the airliner'
   },
-  Created_date: {
+  created_date: {
     type: Date,
     default: Date.now
   },
-  Money: {
+  money: {
     type: String,
     required: 'Kindly enter the money of the airliner'
+  },
+  routes: {
+    type: [routes]
   }
 });
 
