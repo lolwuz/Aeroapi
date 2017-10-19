@@ -16,5 +16,6 @@ module.exports = function(app) {
     .get(airliner.read_airliner_routes)
 
   app.route('/airliner/:airlinerId/route/:routeId')
+    .get(airliner.read_a_airliner_route)
     .put(airliner.add_a_airliner_route)
 };

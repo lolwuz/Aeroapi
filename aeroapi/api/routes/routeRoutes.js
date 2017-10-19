@@ -10,5 +10,5 @@ module.exports = function(app) {
 app.route('/route/:routeId')
   .get(route.read_a_route)
   .put(route.update_a_route)
-  .delete(route.delete_a_route);
+  .delete(route.delete_a_route)
 };

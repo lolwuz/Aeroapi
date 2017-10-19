@@ -3,7 +3,8 @@
 
 var mongoose = require('mongoose'),
   Airliner = mongoose.model('Airliner'),
-  Route = mongoose.model('Route');
+  Route = mongoose.model('Route'),
+  Airport = mongoose.model('Airport');
 
 exports.list_all_airliner = function (req, res) {
   Airliner.find({}, function (err, airliner) {
@@ -84,5 +85,30 @@ exports.add_a_airliner_route = function (req, res) {
           res.send(err);
         res.json(airliner);
       });
+  });
+};
+
+exports.read_a_airliner_route = function (req, res) {
+  Route.findById(req.params.routeId, function (err, route) {
+    if (err)
+      res.send(err);
+    var destinations = route.destinations;
+    var destinationsId = [];
+    for(let i = 0; i < destinations.length; i++){
+      let id = mongoose.Types.ObjectId(destinations[i]);
+      destinationsId.push(id);
+    }
+
+    console.log(destinationsId);
+    
+    // Find Airliners by ID
+    Airport.find({
+      '_id': { $in: destinationsId}
+    }, function (err, airport) {
+      if (err)
+        res.send(err);
+      console.log(airport);
+      res.json(airport);
+    });
   });
 };

@@ -28,12 +28,22 @@ exports.read_a_route = function (req, res) {
     if (err)
       res.send(err);
     var destinations = route.destinations;
-    console.log(destinations);
+    var destinationsId = [];
+    for(let i = 0; i < destinations.length; i++){
+      let id = mongoose.Types.ObjectId(destinations[i]);
+      destinationsId.push(id);
+    }
+
+    console.log(destinationsId);
+    
     // Find Airliners by ID
-    Airliner.find({$in: destinations }, function (err, airliners) {
+    Airport.find({
+      '_id': { $in: destinationsId}
+    }, function (err, airport) {
       if (err)
         res.send(err);
-      res.json(airliners);
+      console.log(airport);
+      res.json(airport);
     });
   });
 };
