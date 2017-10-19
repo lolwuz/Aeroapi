@@ -54,24 +54,35 @@ exports.delete_a_airliner = function (req, res) {
   });
 };
 
-exports.create_a_airliner_route = function (req, res) {
-  var new_route = new Route(req.body.destinations);
+exports.read_airliner_routes = function (req, res) {
+  Airliner.findById(req.params.airlinerId, function (err, airliner) {
+    if (err)
+      res.send(err);
+    res.json(airliner.routes);
+  });
+};
 
-  Airliner.findOneAndUpdate({
-      _id: req.params.airlinerId
-    }, {
-      $push: {
-        "routes": {
-          new_route
+exports.add_a_airliner_route = function (req, res) {
+  var routeId = req.params.routeId
+  
+  Route.findById(req.params.routeId, function (err, route) {
+    if (err)
+      res.send(err);
+   
+      Airliner.findOneAndUpdate({
+        _id: req.params.airlinerId
+      }, {
+        $push: {
+          "routes": route
         }
-      }
-    }, {
-      safe: true,
-      upsert: true
-    },
-    function (err, airliner) {
-      if (err)
-        res.send(err);
-      res.json(airliner);
-    });
+      }, {
+        safe: true,
+        upsert: true
+      },
+      function (err, airliner) {
+        if (err)
+          res.send(err);
+        res.json(airliner);
+      });
+  });
 };

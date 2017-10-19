@@ -4,11 +4,11 @@ module.exports = function(app) {
 
   // todoList Routes
   app.route('/route')
-  .get(airport.list_all_route)
-  .post(airport.create_a_route)
+  .get(route.list_all_route)
+  .post(route.create_a_route)
 
-app.route('/route/:airportId')
-  .get(airport.read_a_route)
-  .put(airport.update_a_route)
-  .delete(airport.delete_a_route);
+app.route('/route/:routeId')
+  .get(route.read_a_route)
+  .put(route.update_a_route)
+  .delete(route.delete_a_route);
 };

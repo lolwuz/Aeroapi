@@ -4,7 +4,8 @@ port = process.env.PORT || 3000,
 mongoose = require('mongoose'),
 Airliner = require('./api/models/airlinerModel'), //created model loading here
 Airport = require('./api/models/airportModel'), //created model loading here
-Plane = require('./api/models/planeModel'), //created model loading here
+Plane = require('./api/models/planeModel'),
+Route = require('./api/models/routeModel'), //created model loading here
 docs = require("express-mongoose-docs"),
 Plane = require('./api/models/planeModel'),
 bodyParser = require('body-parser');
@@ -21,6 +22,9 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
+
+var routeRoutes = require('./api/routes/routeRoutes'); //importing route
+routeRoutes(app); //register the route
   
 var airlinerRoutes = require('./api/routes/airlinerRoutes'); //importing route
 airlinerRoutes(app); //register the route

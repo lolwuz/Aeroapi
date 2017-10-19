@@ -18,7 +18,7 @@ var AirlinerSchema = new Schema({
     required: 'Kindly enter the money of the airliner'
   },
   routes: {
-    type: [String]
+    type: [ObjectId]
   }
 });
 
