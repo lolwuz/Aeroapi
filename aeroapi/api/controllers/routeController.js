@@ -4,6 +4,7 @@
 var mongoose = require('mongoose');
 var Route = mongoose.model('Route');
 var Airliner = mongoose.model('Airliner');
+var Airport = mongoose.model('Airport');
 
 exports.list_all_route = function (req, res) {
   Route.find({}, function (err, route) {
@@ -26,7 +27,14 @@ exports.read_a_route = function (req, res) {
   Route.findById(req.params.routeId, function (err, route) {
     if (err)
       res.send(err);
-    res.json(route);
+    var destinations = route.destinations;
+    console.log(destinations);
+    // Find Airliners by ID
+    Airliner.find({$in: destinations }, function (err, airliners) {
+      if (err)
+        res.send(err);
+      res.json(airliners);
+    });
   });
 };
 
