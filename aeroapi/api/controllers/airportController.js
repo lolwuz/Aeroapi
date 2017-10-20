@@ -45,3 +45,11 @@ exports.delete_a_airport = function(req, res) {
     res.json({ message: 'airport successfully deleted' });
   });
 };
+
+exports.delete_all_airport = function(req, res){
+  Airport.remove({},, function(err, airport) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'airport successfully deleted' });
+  });
+}

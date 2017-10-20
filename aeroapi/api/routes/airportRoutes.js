@@ -5,7 +5,8 @@ module.exports = function(app) {
   // todoList Routes
   app.route('/airport')
     .get(airport.list_all_airport)
-    .post(airport.create_a_airport);
+    .post(airport.create_a_airport)
+    .delete(airport.delete_all_airport);
 
 
   app.route('/airport/:airportId')
