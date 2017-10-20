@@ -11,11 +11,4 @@ module.exports = function(app) {
     .get(airliner.read_a_airliner)
     .put(airliner.update_a_airliner)
     .delete(airliner.delete_a_airliner);
-
-  app.route('/airliner/:airlinerId/routes')
-    .get(airliner.read_airliner_routes)
-
-  app.route('/airliner/:airlinerId/route/:routeId')
-    .get(airliner.read_a_airliner_route)
-    .put(airliner.add_a_airliner_route)
 };
