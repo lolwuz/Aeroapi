@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
   Airport = mongoose.model('Airport');
 
 exports.list_all_airport = function(req, res) {
-    Airport.find({size: 'large'}, function(err, airport) {
+    Airport.find({ $or:[ {'direct_flights':{$gt: 20}}, {'carriers':{$gt: 20}} ]}, function(err, airport) {
     if (err)
       res.send(err);
     res.json(airport);
@@ -47,7 +47,7 @@ exports.delete_a_airport = function(req, res) {
 };
 
 exports.delete_all_airport = function(req, res){
-  Airport.remove({},, function(err, airport) {
+  Airport.remove({}, function(err, airport) {
     if (err)
       res.send(err);
     res.json({ message: 'airport successfully deleted' });

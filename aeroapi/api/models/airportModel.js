@@ -5,47 +5,39 @@ var Schema = mongoose.Schema;
 
 var AirportSchema = new Schema({
     code: {
-        type: String,
-        required: 'Airports should have a iata code'
+        type: String
     },
     lon: {
         type: Number,
-        required: 'Enter airport longitude'
+        required: "should have lon "
     },
     lat: {
         type: Number,
-        required: 'Enter airport lat'
+        required: "should have lat "
     },
     name: {
-        type: String,
-        required: 'This airport has no name.'
+        type: String
     },
     city: {
-        type: String,
-        required: 'Airports should have a city name'
+        type: String
     },
     state: {
-        type: String,
-        required: 'Airports should have a state'
+        type: String
     },
     country: {
-        type: String,
-        required: 'Airports should have a country name'
+        type: String
     },
     woeid: {
-        type: String,
-        required: 'Give WOEID'
+        type: Number
     },
     tz: {
-        type: String,
-        required: 'Enter a Timezone'
+        type: String
     },
     phone: {
         type: String
     },
     type: {
-        type: String,
-        required: 'Airports should have a type'
+        type: String
     },
     email: {
         type: String
@@ -54,22 +46,19 @@ var AirportSchema = new Schema({
         type: String
     },
     runway_length: {
-        type: String
+        type: Number
     },
     elev: {
-        type: String,
-        required: 'Airport elevation'
+        type: Number
     },
     icao: {
-        type: String,
-        required: 'Airports should have a icao'
+        type: String
     },
-    direct_flight: {
-        type: String,
-        required: 'Direct flights needed for landing rights'
+    direct_flights: {
+        type: Number
     },
     carriers: {
-        type: String
+        type: Number
     }
 });
 
