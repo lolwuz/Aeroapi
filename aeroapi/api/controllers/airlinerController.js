@@ -1,20 +1,53 @@
 "use strict";
 
-var mongoose = require("mongoose"),
-  Airliner = mongoose.model("Airliner"),
-  Route = mongoose.model("Route"),
-  Airport = mongoose.model("Airport");
+var mongoose = require("mongoose");
+var Airliner = mongoose.model("Airliner");
+var bcrypt = require("bcrypt");
+var jwt = require('jsonwebtoken');
 
-exports.list_all_airliner = function(req, res) {
-  Airliner.find({}, function(err, airliner) {
-    if (err) res.send(err);
-    res.json(airliner);
+
+exports.register = function(req, res){
+  var newAirliner = new Airliner(req.body);
+  newAirliner.hash_password = bcrypt.hashSync(req.body.password, 10);
+  newAirliner.save(function(err, airliner) {
+    if (err) {
+      return res.status(400).send({
+        message: err
+      });
+    } else {
+      airliner.hash_password = undefined;
+      return res.json(airliner);
+    }
   });
 };
 
-exports.create_a_airliner = function(req, res) {
-  var new_airliner = new Airliner(req.body);
-  new_airliner.save(function(err, airliner) {
+exports.sign_in = function(req, res){
+  Airliner.findOne({
+    email: req.body.email
+  }, function(err, airliner) {
+    if (err) throw err;
+    if (!airliner) {
+      res.status(401).json({ message: 'Authentication failed. airliner not found.' });
+    } else if (airliner) {
+      if (!airliner.comparePassword(req.body.password)) {
+        res.status(401).json({ message: 'Authentication failed. Wrong password.' });
+      } else {
+        return res.json({token: jwt.sign({ email: airliner.email, fullName: airliner.fullName, _id: airliner._id}, 'RESTFULAPIs')});
+      }
+    }
+  });
+};
+
+exports.loginRequired = function(req, res, next){
+  if (req.airliner) {
+    next();
+  } else {
+    return res.status(401).json({ message: 'Unauthorized airliner!' });
+  }
+};
+
+exports.list_all_airliner = function(req, res) {
+  Airliner.find({}, function(err, airliner) {
     if (err) res.send(err);
     res.json(airliner);
   });
@@ -55,64 +88,4 @@ exports.delete_a_airliner = function(req, res) {
       });
     }
   );
-};
-
-exports.read_airliner_routes = function(req, res) {
-  Airliner.findById(req.params.airlinerId, function(err, airliner) {
-    if (err) res.send(err);
-    res.json(airliner.routes);
-  });
-};
-
-exports.add_a_airliner_route = function(req, res) {
-  var routeId = req.params.routeId;
-
-  Route.findById(req.params.routeId, function(err, route) {
-    if (err) res.send(err);
-
-    Airliner.findOneAndUpdate(
-      {
-        _id: req.params.airlinerId
-      },
-      {
-        $push: {
-          routes: route
-        }
-      },
-      {
-        safe: true,
-        upsert: true
-      },
-      function(err, airliner) {
-        if (err) res.send(err);
-        res.json(airliner);
-      }
-    );
-  });
-};
-
-exports.read_a_airliner_route = function(req, res) {
-  Route.findById(req.params.routeId, function(err, route) {
-    if (err) res.send(err);
-    var destinations = route.destinations;
-    var destinationsId = [];
-    for (let i = 0; i < destinations.length; i++) {
-      let id = mongoose.Types.ObjectId(destinations[i]);
-      destinationsId.push(id);
-    }
-
-    console.log(destinationsId);
-
-    // Find Airliners by ID
-    Airport.find(
-      {
-        _id: { $in: destinationsId }
-      },
-      function(err, airport) {
-        if (err) res.send(err);
-        console.log(airport);
-        res.json(airport);
-      }
-    );
-  });
 };

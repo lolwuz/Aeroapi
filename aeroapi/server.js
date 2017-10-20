@@ -1,14 +1,21 @@
-var express = require('express'),
-app = express(),
-port = process.env.PORT || 3000,
-mongoose = require('mongoose'),
-Airliner = require('./api/models/airlinerModel'), //created model loading here
-Airport = require('./api/models/airportModel'), //created model loading here
-Plane = require('./api/models/planeModel'),
-Route = require('./api/models/routeModel'), //created model loading here
-docs = require("express-mongoose-docs"),
-Plane = require('./api/models/planeModel'),
-bodyParser = require('body-parser');
+'use strict';
+
+// Dependencies
+var express = require('express');
+var app = express();
+var port = process.env.PORT || 3000;
+var mongoose = require('mongoose');
+
+// Schemas
+var Airliner = require('./api/models/airlinerModel'); //created model loading here
+var Airport = require('./api/models/airportModel'); //created model loading here
+var Plane = require('./api/models/planeModel');
+var Route = require('./api/models/routeModel'); //created model loading here
+
+// Extra Docs and auth
+var docs = require("express-mongoose-docs");
+var bodyParser = require('body-parser');
+var jsonwebtoken = require('jsonwebtoken');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -22,6 +29,20 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
+
+app.use(function(req, res, next){
+    if(req.header && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT'){
+        console.log(req.headers.authorization);
+        jsonwebtoken.verify(req.headers.authorization.split(' ')[1], 'RESTFULAPIs', function(err, decode){
+            if(err) req.airliner = undefined;
+            req.airliner = decode;
+            next();
+        });
+    }else{
+        req.airliner = undefined;
+        next();
+    }
+});
 
 var routeRoutes = require('./api/routes/routeRoutes'); //importing route
 routeRoutes(app); //register the route
