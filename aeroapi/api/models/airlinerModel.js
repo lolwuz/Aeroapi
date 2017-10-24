@@ -35,7 +35,11 @@ var AirlinerSchema = new Schema({
   },
   routes: {
     type: [ObjectId]
+  },
+  planes: {
+    type: [ObjectId]
   }
+
 });
 
 AirlinerSchema.methods.comparePassword = function(password){

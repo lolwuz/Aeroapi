@@ -45,3 +45,12 @@ exports.delete_a_plane = function(req, res) {
     res.json({ message: 'plane successfully deleted' });
   });
 };
+
+exports.read_all_airliner_plane = function(req, res) {
+
+};
+
+exports.add_a_airliner_plane = function(req, res) {
+
+
+};

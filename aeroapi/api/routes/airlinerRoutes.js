@@ -11,7 +11,7 @@ module.exports = function(app) {
 
   // Get all airliners
   app.route('/airliners')
-    .get(airliner.loginRequired, airliner.list_all_airliner)
+    .get(airliner.list_all_airliner)
 
   // Airliner functions 
   app.route('/airliner/:airlinerId')
