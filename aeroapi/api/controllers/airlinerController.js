@@ -22,6 +22,8 @@ exports.register = function(req, res){
 };
 
 exports.sign_in = function(req, res){
+
+  console.log(req.body.email);
   Airliner.findOne({
     email: req.body.email
   }, function(err, airliner) {
