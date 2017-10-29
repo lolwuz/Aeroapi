@@ -13,6 +13,6 @@ module.exports = function(app) {
     .put(airliner.loginRequired, plane.update_a_plane)
     .delete(airliner.loginRequired, plane.delete_a_plane);
 
-  app.route('/airliner/:airlinerId/plane/:planeId')
+  app.route('/airliner/:airlinerId/plane')
     .post(airliner.loginRequired, plane.add_a_airliner_plane)
 };
