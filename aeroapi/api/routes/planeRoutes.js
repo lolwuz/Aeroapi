@@ -14,5 +14,6 @@ module.exports = function(app) {
     .delete(airliner.loginRequired, plane.delete_a_plane);
 
   app.route('/airliner/:airlinerId/plane')
+    .get(plane.read_all_airliner_plane)
     .post(airliner.loginRequired, plane.add_a_airliner_plane)
 };

@@ -30,7 +30,7 @@ var AirlinerSchema = new Schema({
     default: Date.now
   },
   money: {
-    type: String,
+    type: Number,
     required: 'Kindly enter the money of the airliner'
   },
   routes: {

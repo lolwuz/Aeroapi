@@ -15,6 +15,9 @@ var RouteSchema = new Schema({
   },
   created_by: {
     type: ObjectId
+  },
+  planes: {
+    type: [ObjectId]
   }
 });
 

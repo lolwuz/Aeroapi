@@ -8,9 +8,9 @@ var PlaneSchema = new Schema({
         type: String,
         required: 'This airport has no name.'
     },
-    type: {
-        type: String,
-        required: 'Enter type of the aircraft'
+    range: {
+        type: Number,
+        required: 'Enter range of the aircraft'
     },
     price: {
         type: Number,
