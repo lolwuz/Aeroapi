@@ -12,18 +12,18 @@ var AirlinerSchema = new Schema({
   fullName: {
     type: String,
     trim: true,
-    required: true
+    required: 'Enter a username'
   },
   email: {
     type: String,
     unique: true,
     lowercase: true,
     trim: true,
-    required: true
+    required: 'Enter a email adress'
   },
   hash_password: {
     type: String,
-    required: true
+    required: 'Password required'
   },
   created_date: {
     type: Date,
@@ -38,8 +38,11 @@ var AirlinerSchema = new Schema({
   },
   planes: {
     type: [ObjectId]
+  },
+  color: {
+    type: Number,
+    default: 1
   }
-
 });
 
 AirlinerSchema.methods.comparePassword = function(password){
