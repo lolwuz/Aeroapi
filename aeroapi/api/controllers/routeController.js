@@ -32,6 +32,9 @@ exports.read_all_route = function (req, res) {
   Airliner.findById(req.params.airlinerId, function (err, airliner) {
     if (err)
       res.send(err);
+    if(airliner.routes == null){
+      res.send(err);
+    } // Send err if routes is not defined
     // Find Airliners by ID
     Route.find({'_id': { $in: airliner.routes}}, function (err, route) {
       if (err)

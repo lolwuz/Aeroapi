@@ -29,7 +29,6 @@ app.use(cors())
 
 app.use(function(req, res, next){
     if(req.header && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT'){
-        console.log(req.headers.authorization);
         jsonwebtoken.verify(req.headers.authorization.split(' ')[1], 'RESTFULAPIs', function(err, decode){
             if(err) req.airliner = undefined;
             req.airliner = decode;
